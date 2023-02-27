@@ -76,7 +76,7 @@ class _FirstPageState extends State<FirstPage> {
           items: _writableCalendars.map((Calendar value) {
             return DropdownMenuItem<Calendar>(
               value: value,
-              child: Text(value.name! + " - " + value.accountType!),
+              child: Text("${value.name!} - ${value.accountType!}"),
             );
           }).toList(),
           onChanged: (value) {

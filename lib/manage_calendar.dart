@@ -1,44 +1,31 @@
-import 'dart:convert';
+import 'dart:developer';
 
 import 'package:device_calendar/device_calendar.dart';
+import 'package:f1_calendar/core/services/ergast.service.dart';
+import 'package:f1_calendar/models/calendar.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
-import 'models/calendar.dart' as model;
-import 'package:http/http.dart' as http;
-import 'package:timezone/timezone.dart';
+// import 'package:timezone/timezone.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 
 class CalendarsPage extends StatefulWidget {
-  CalendarsPage({Key? key}) : super(key: key);
+  const CalendarsPage({Key? key}) : super(key: key);
 
   @override
-  _CalendarsPageState createState() {
-    return _CalendarsPageState();
-  }
+  CalendarsPageState createState() => CalendarsPageState();
 }
 
-class _CalendarsPageState extends State<CalendarsPage> {
+class CalendarsPageState extends State<CalendarsPage> {
   late DeviceCalendarPlugin _deviceCalendarPlugin;
-  _CalendarsPageState() {
-    _deviceCalendarPlugin = DeviceCalendarPlugin();
-  }
 
   @override
   void initState() {
-    super.initState();
+    _deviceCalendarPlugin = DeviceCalendarPlugin();
     _retrieveCalendars();
+    super.initState();
   }
 
-  Future<model.Calendar> fetchRaces() async {
-    final response =
-        await http.get(Uri.parse('https://ergast.com/api/f1/2022.json'));
 
-    if (response.statusCode == 200) {
-      return model.Calendar.fromJson(jsonDecode(response.body));
-    } else {
-      throw Exception('Failed to load album');
-    }
-  }
 
   void _retrieveCalendars() async {
     try {
@@ -62,11 +49,11 @@ class _CalendarsPageState extends State<CalendarsPage> {
           calendars.where((c) => c.isReadOnly == false).toList();
       Calendar myCalendar = calendars.first;
 
-      writableCalendars.forEach((element) {
+      for (var element in writableCalendars) {
         if (element.name!.contains("@gmail.com")) {
           myCalendar = element;
         }
-      });
+      }
 
       var tmpCalendarEvents = await _deviceCalendarPlugin.retrieveEvents(
           myCalendar.id,
@@ -75,23 +62,23 @@ class _CalendarsPageState extends State<CalendarsPage> {
               endDate: DateTime.parse("2022-12-31")));
 
       List<Event> calendarEvents = tmpCalendarEvents.data as List<Event>;
-      model.Calendar races = await fetchRaces();
+      CalendarData races = await getRaces();
       tz.initializeTimeZones();
 
-      races.mRData!.raceTable!.races!.forEach((race) {
+      for (var race in races.mRData.raceTable!.races!) {
         Event foundEvent = Event(myCalendar.id);
 
         //race info
         TZDateTime startDate = TZDateTime.parse(
-            getLocation('Europe/Rome'), race.date! + " " + race.time!);
-        TZDateTime endDate = startDate.add(Duration(hours: 1));
+          getLocation('Europe/Rome'), "${race.date!} ${race.time!}");
+        TZDateTime endDate = startDate.add(const Duration(hours: 1));
         String title = race.raceName!;
 
-        calendarEvents.forEach((event) {
+        for (var event in calendarEvents) {
           if (event.title == race.raceName) {
             foundEvent = event;
           }
-        });
+        }
 
         foundEvent.start = startDate;
         foundEvent.end = endDate;
@@ -99,10 +86,10 @@ class _CalendarsPageState extends State<CalendarsPage> {
 
         var createdEvent =
             _deviceCalendarPlugin.createOrUpdateEvent(foundEvent);
-        print(createdEvent);
-      });
+        log(createdEvent.toString());
+      }
     } on PlatformException catch (e) {
-      print(e);
+      log(e.toString());
     }
   }
 
