@@ -61,6 +61,7 @@ class NewPageState extends State{
         padding: const EdgeInsets.all(16),
         child:  Column(
           children: [
+            Text("Choose the season",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
             MyYearPicker(
               label: 'Season',
               alertLabel: 'Choose a season',
@@ -69,7 +70,7 @@ class NewPageState extends State{
               selectedDate: selectedDate, 
               onChanged: (d) => handleYearPickerChange(d), 
             ),
-            SizedBox(height: 32,),
+            SizedBox(height: 64,),
             Text("Choose your calendar",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
             DropdownButton<String>(
               isExpanded: true,
@@ -82,7 +83,7 @@ class NewPageState extends State{
               ).toList(),
               onChanged: handleCalendarChange
             ),
-            SizedBox(height: 32,),
+            SizedBox(height: 64,),
             Text("Choose what to save in the calendar", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
             CheckboxListTile(
               title: Text("First Practice"),
@@ -140,6 +141,7 @@ class NewPageState extends State{
             ),
             SizedBox(height: 64,),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 ElevatedButton(
                   onPressed: saveEvents, 
@@ -314,7 +316,7 @@ class NewPageState extends State{
     for (Event e in eventsToAdd)  {
       await deviceCalendarPlugin.createOrUpdateEvent(e);
     }
-    
+
     decreseCounter();
     EasyLoading.showSuccess("Events inserted in the calendar successfully!", duration: Duration(seconds: 5), dismissOnTap: true);
   }

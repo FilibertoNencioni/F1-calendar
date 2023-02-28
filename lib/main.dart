@@ -1,4 +1,4 @@
-import 'package:f1_calendar/pages/home.dart';
+import 'package:f1_calendar/page_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
@@ -16,7 +16,7 @@ class App extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const Home(),
+      home: const PageHandler(),
       builder: EasyLoading.init(),
     );
   }
