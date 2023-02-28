@@ -1,5 +1,6 @@
 import 'package:f1_calendar/pages/home.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 void main() {
   runApp(const App());
@@ -8,7 +9,6 @@ void main() {
 class App extends StatelessWidget {
   const App({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -17,6 +17,7 @@ class App extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: const Home(),
+      builder: EasyLoading.init(),
     );
   }
 }

@@ -36,6 +36,7 @@ dependencies:
   cupertino_icons: ^1.0.5
   http: ^0.13.5
   device_calendar: ^4.3.0
+  flutter_easyloading: ^3.0.5
 
 dev_dependencies:
   flutter_test:

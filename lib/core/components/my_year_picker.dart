@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class MyYearPicker extends StatefulWidget {
   final String label;
+  final String alertLabel;
   final DateTime startDate;
   final DateTime endDate;
   final DateTime selectedDate;
@@ -13,7 +14,8 @@ class MyYearPicker extends StatefulWidget {
     required this.startDate, 
     required this.endDate, 
     required this.selectedDate, 
-    required this.onChanged,
+    required this.onChanged, 
+    required this.alertLabel,
   }) : super(key: key);
   
   @override
@@ -43,14 +45,13 @@ class MyYearPickerState extends State<MyYearPicker>{
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
-              title: const Text("Seleziona una stagione"),
+              title: Text(widget.alertLabel),
               content: SizedBox(
                 width: 300,
                 height: 300,
                 child: YearPicker(
                   firstDate: widget.startDate,
                   lastDate: widget.endDate,
-
                   selectedDate: widget.selectedDate,
                   onChanged: (d) {
                     widget.onChanged(d);

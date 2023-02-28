@@ -36,10 +36,10 @@ class Races {
   Circuit circuit;
   String date;
   String time;
-  RaceEvent firstPractice;
-  RaceEvent secondPractice;
+  RaceEvent? firstPractice;
+  RaceEvent? secondPractice;
   RaceEvent? thirdPractice;
-  RaceEvent qualifying;
+  RaceEvent? qualifying;
   RaceEvent? sprint;
 
   Races({
@@ -50,10 +50,10 @@ class Races {
     required this.circuit,
     required this.date,
     required this.time,
-    required this.firstPractice,
-    required this.secondPractice,
+    this.firstPractice,
+    this.secondPractice,
     this.thirdPractice,
-    required this.qualifying,
+    this.qualifying,
     this.sprint
   });
 
@@ -66,10 +66,10 @@ class Races {
       circuit: Circuit.fromJson(json['Circuit']),
       date: json['date'],
       time: json['time'],
-      firstPractice: RaceEvent.fromJson(json['FirstPractice']),
-      secondPractice: RaceEvent.fromJson(json['SecondPractice']),
+      firstPractice: json['FirstPractice'] != null? RaceEvent.fromJson(json['FirstPractice']): null,
+      secondPractice: json['SecondPractice'] != null? RaceEvent.fromJson(json['SecondPractice']): null,
       thirdPractice: json['ThirdPractice'] != null? RaceEvent.fromJson(json['ThirdPractice']) : null,
-      qualifying: RaceEvent.fromJson(json['Qualifying']),
+      qualifying: json['ThirdPractice'] != null? RaceEvent.fromJson(json['Qualifying']): null,
       sprint: json['Sprint'] != null ? RaceEvent.fromJson(json['Sprint']) : null
     );
   }
