@@ -284,7 +284,7 @@ class NewPageState extends State{
         Event currentEvent = Event(selectedCalendarID);
         currentEvent.start = TZDateTime.parse(getLocation('Europe/Rome'), "${race.firstPractice!.date} ${race.firstPractice!.time}");
         currentEvent.end = currentEvent.start!.add(const Duration(hours: 1));
-        currentEvent.title = "${race.raceName} - First Practice";
+        currentEvent.title = "${race.raceName} - ${AppLocalizations.of(context)!.first_practice}";
         eventsToAdd.add(currentEvent);
       }
 
@@ -292,7 +292,7 @@ class NewPageState extends State{
         Event currentEvent = Event(selectedCalendarID);
         currentEvent.start = TZDateTime.parse(getLocation('Europe/Rome'), "${race.secondPractice!.date} ${race.secondPractice!.time}");
         currentEvent.end = currentEvent.start!.add(const Duration(hours: 1));
-        currentEvent.title = "${race.raceName} - Second Practice";
+        currentEvent.title = "${race.raceName} - ${AppLocalizations.of(context)!.second_practice}";
         eventsToAdd.add(currentEvent);
       }
 
@@ -300,7 +300,7 @@ class NewPageState extends State{
         Event currentEvent = Event(selectedCalendarID);
         currentEvent.start = TZDateTime.parse(getLocation('Europe/Rome'), "${race.thirdPractice!.date} ${race.thirdPractice!.time}");
         currentEvent.end = currentEvent.start!.add(const Duration(hours: 1));
-        currentEvent.title = "${race.raceName} - Third Practice";
+        currentEvent.title = "${race.raceName} - ${AppLocalizations.of(context)!.third_practice}";
         eventsToAdd.add(currentEvent);
       }
 
@@ -308,7 +308,7 @@ class NewPageState extends State{
         Event currentEvent = Event(selectedCalendarID);
         currentEvent.start = TZDateTime.parse(getLocation('Europe/Rome'), "${race.sprint!.date} ${race.sprint!.time}");
         currentEvent.end = currentEvent.start!.add(const Duration(hours: 1));
-        currentEvent.title = "${race.raceName} - Sprint Race";
+        currentEvent.title = "${race.raceName} - ${AppLocalizations.of(context)!.sprint_race}";
         eventsToAdd.add(currentEvent);
       }
 
@@ -316,7 +316,7 @@ class NewPageState extends State{
         Event currentEvent = Event(selectedCalendarID);
         currentEvent.start = TZDateTime.parse(getLocation('Europe/Rome'), "${race.qualifying!.date} ${race.qualifying!.time}");
         currentEvent.end = currentEvent.start!.add(const Duration(hours: 1));
-        currentEvent.title = "${race.raceName} - Qualifying";
+        currentEvent.title = "${race.raceName} - ${AppLocalizations.of(context)!.qualifying}";
         eventsToAdd.add(currentEvent);
       }
 
