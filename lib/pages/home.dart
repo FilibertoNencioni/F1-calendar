@@ -1,5 +1,3 @@
-import 'package:f1_calendar/manage_calendar.dart';
-import 'package:f1_calendar/pages/first_page.dart';
 import 'package:f1_calendar/pages/new_page.dart';
 import 'package:flutter/material.dart';
 
@@ -19,15 +17,7 @@ class Home extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             ElevatedButton(
-              child: const Text("Test UI"),
-              onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const FirstPage())),
-            ),
-            ElevatedButton(
-              child: const Text("TimeZone"),
-              onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const CalendarsPage()))
-            ),
-            ElevatedButton(
-              child: const Text('Test API'),
+              child: const Text('LET\'S START!'),
               onPressed: ()=> Navigator.push(context, MaterialPageRoute(builder: (context) => const NewPage()))
             )
           ],

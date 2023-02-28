@@ -23,7 +23,7 @@ class NewPageState extends State{
   CalendarData? calendarData;
   DateTime selectedDate = DateTime.now();
 
-  bool chkRaces = false;
+  bool chkRace = false;
   bool chkQualifying = false;
   bool chkSprint = false;
   bool chkFirstPractice = false;
@@ -35,6 +35,7 @@ class NewPageState extends State{
 
   @override
   void initState() {
+    tz.initializeTimeZones();
     deviceCalendarPlugin = DeviceCalendarPlugin();
     retrieveCalendars();
     getRaces(selectedDate.year.toString()).then((value) {
@@ -130,17 +131,25 @@ class NewPageState extends State{
             ),
             CheckboxListTile(
               title: Text("Race"),
-              value: chkRaces,
+              value: chkRace,
               onChanged: (newValue) {
                 setState(() {
-                  chkRaces = newValue!;
+                  chkRace = newValue!;
                 });
               }
             ),
             SizedBox(height: 64,),
-            ElevatedButton(
-              onPressed: saveEvents, 
-              child: Text("PROCEED")
+            Row(
+              children: [
+                ElevatedButton(
+                  onPressed: saveEvents, 
+                  child: Text("PROCEED")
+                ),
+                ElevatedButton(
+                  onPressed: deleteEvents, 
+                  child: Text("DELETE ALL FROM CALENDAR"),
+                )
+              ],
             )
           ],
         ),
@@ -206,6 +215,25 @@ class NewPageState extends State{
     }
   }
 
+  deleteEvents() async{
+    increaseCounter();
+    //CHECK IF ALREADY EXISTS THE EVENT ON THE CALENDAR
+    Result<UnmodifiableListView<Event>> tmpCalendarEvents = await deviceCalendarPlugin.retrieveEvents(
+      selectedCalendarID,
+      RetrieveEventsParams(
+        startDate: DateTime(selectedDate.year),
+        endDate: DateTime(selectedDate.year, 12, 31)
+      )
+    );
+
+    List<Event> calendarEvents = tmpCalendarEvents.data as List<Event>;
+    calendarEvents.forEach((element) {
+      deviceCalendarPlugin.deleteEvent(selectedCalendarID, element.eventId);
+      
+    });
+    decreseCounter();
+  }
+
   saveEvents() async{
     increaseCounter();
     if(selectedCalendarID == ''){
@@ -218,43 +246,76 @@ class NewPageState extends State{
       return;
     }
 
-    if(chkFirstPractice && chkSecondPractice && chkThirdPractice && chkQualifying && chkRaces){
+    if(chkFirstPractice && chkSecondPractice && chkThirdPractice && chkQualifying && chkRace){
       EasyLoading.showError("Select at least one option from the checkboxes");
       return;
     }
 
-    //CHECK IF ALREADY EXISTS THE EVENT ON THE CALENDAR
-    Result<UnmodifiableListView<Event>> tmpCalendarEvents = await deviceCalendarPlugin.retrieveEvents(
-      selectedCalendarID,
-      RetrieveEventsParams(
-        startDate: DateTime(selectedDate.year),
-        endDate: DateTime(selectedDate.year, 12, 31)
-      )
-    );
-
-    List<Event> calendarEvents = tmpCalendarEvents.data as List<Event>;
-    tz.initializeTimeZones();
+    List<Event> eventsToAdd = [];
 
     for (var race in calendarData!.mRData.raceTable!.races) {
-      Event currentEvent = Event(selectedCalendarID);
 
-      //race info
-      TZDateTime startDate = TZDateTime.parse(getLocation('Europe/Rome'), "${race.date} ${race.time}");
-      TZDateTime endDate = startDate.add(const Duration(hours: 1));
-      String title = race.raceName;
+      if(chkRace){
+        Event currentEvent = Event(selectedCalendarID);
+        //race info
+        TZDateTime startDate = TZDateTime.parse(getLocation('Europe/Rome'), "${race.date} ${race.time}");
+        TZDateTime endDate = startDate.add(const Duration(hours: 1));
+        String title = race.raceName;
 
-      for (var event in calendarEvents) {
-        if (event.title == race.raceName) {
-          currentEvent = event;
-        }
+        currentEvent.start = startDate;
+        currentEvent.end = endDate;
+        currentEvent.title = title;
+        eventsToAdd.add(currentEvent);
       }
 
-      currentEvent.start = startDate;
-      currentEvent.end = endDate;
-      currentEvent.title = title;
+      if(chkFirstPractice && race.firstPractice != null){
+        Event currentEvent = Event(selectedCalendarID);
+        currentEvent.start = TZDateTime.parse(getLocation('Europe/Rome'), "${race.firstPractice!.date} ${race.firstPractice!.time}");
+        currentEvent.end = currentEvent.start!.add(const Duration(hours: 1));
+        currentEvent.title = "${race.raceName} - First Practice";
+        eventsToAdd.add(currentEvent);
+      }
 
-      deviceCalendarPlugin.createOrUpdateEvent(currentEvent);
+      if(chkSecondPractice && race.secondPractice != null){
+        Event currentEvent = Event(selectedCalendarID);
+        currentEvent.start = TZDateTime.parse(getLocation('Europe/Rome'), "${race.secondPractice!.date} ${race.secondPractice!.time}");
+        currentEvent.end = currentEvent.start!.add(const Duration(hours: 1));
+        currentEvent.title = "${race.raceName} - Second Practice";
+        eventsToAdd.add(currentEvent);
+      }
+
+      if(chkThirdPractice && race.thirdPractice != null){
+        Event currentEvent = Event(selectedCalendarID);
+        currentEvent.start = TZDateTime.parse(getLocation('Europe/Rome'), "${race.thirdPractice!.date} ${race.thirdPractice!.time}");
+        currentEvent.end = currentEvent.start!.add(const Duration(hours: 1));
+        currentEvent.title = "${race.raceName} - Third Practice";
+        eventsToAdd.add(currentEvent);
+      }
+
+      if(chkSprint && race.sprint != null){
+        Event currentEvent = Event(selectedCalendarID);
+        currentEvent.start = TZDateTime.parse(getLocation('Europe/Rome'), "${race.sprint!.date} ${race.sprint!.time}");
+        currentEvent.end = currentEvent.start!.add(const Duration(hours: 1));
+        currentEvent.title = "${race.raceName} - Sprint Race";
+        eventsToAdd.add(currentEvent);
+      }
+
+      if(chkQualifying && race.qualifying != null){
+        Event currentEvent = Event(selectedCalendarID);
+        currentEvent.start = TZDateTime.parse(getLocation('Europe/Rome'), "${race.qualifying!.date} ${race.qualifying!.time}");
+        currentEvent.end = currentEvent.start!.add(const Duration(hours: 1));
+        currentEvent.title = "${race.raceName} - Qualifying";
+        eventsToAdd.add(currentEvent);
+      }
+
     }
+
+    //ADD EVENTS TO CALENDAR
+    for (Event e in eventsToAdd)  {
+      await deviceCalendarPlugin.createOrUpdateEvent(e);
+    }
+    
     decreseCounter();
+    EasyLoading.showSuccess("Events inserted in the calendar successfully!", duration: Duration(seconds: 5), dismissOnTap: true);
   }
 }
