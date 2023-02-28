@@ -38,6 +38,9 @@ dependencies:
   device_calendar: ^4.3.0
   flutter_easyloading: ^3.0.5
   persistent_bottom_nav_bar_v2: ^4.2.6
+  flutter_localizations:
+    sdk: flutter
+  shared_preferences: ^2.0.18
 
 dev_dependencies:
   flutter_test:
@@ -55,7 +58,7 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
-
+  generate: true
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.

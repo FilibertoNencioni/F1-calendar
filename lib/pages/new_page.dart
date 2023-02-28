@@ -9,6 +9,8 @@ import 'package:f1_calendar/models/calendar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 class NewPage extends StatefulWidget{
   const NewPage({Key? key}) : super(key: key);
@@ -61,17 +63,23 @@ class NewPageState extends State{
         padding: const EdgeInsets.all(16),
         child:  Column(
           children: [
-            Text("Choose the season",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
+            Text(
+              AppLocalizations.of(context)!.choose_season, 
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+            ),
             MyYearPicker(
-              label: 'Season',
-              alertLabel: 'Choose a season',
+              label: AppLocalizations.of(context)!.season,
+              alertLabel: AppLocalizations.of(context)!.choose_season,
               startDate: (seasons.isNotEmpty)? DateTime(int.parse(seasons.first)) : DateTime.now(), 
               endDate: (seasons.isNotEmpty)? DateTime(int.parse(seasons.last)) : DateTime.now(), 
               selectedDate: selectedDate, 
               onChanged: (d) => handleYearPickerChange(d), 
             ),
             SizedBox(height: 64,),
-            Text("Choose your calendar",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
+            Text(
+              AppLocalizations.of(context)!.choose_calendar,
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+            ),
             DropdownButton<String>(
               isExpanded: true,
               value: selectedCalendarID,
@@ -84,9 +92,12 @@ class NewPageState extends State{
               onChanged: handleCalendarChange
             ),
             SizedBox(height: 64,),
-            Text("Choose what to save in the calendar", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
+            Text(
+              AppLocalizations.of(context)!.choose_event, 
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+            ),
             CheckboxListTile(
-              title: Text("First Practice"),
+              title: Text(AppLocalizations.of(context)!.first_practice),
               value: chkFirstPractice,
               onChanged: (newValue) {
                 setState(() {
@@ -95,7 +106,7 @@ class NewPageState extends State{
               }
             ),
             CheckboxListTile(
-              title: Text("Second Practice"),
+              title: Text(AppLocalizations.of(context)!.second_practice),
               value: chkSecondPractice,
               onChanged: (newValue) {
                 setState(() {
@@ -104,7 +115,7 @@ class NewPageState extends State{
               }
             ),
             CheckboxListTile(
-              title: Text("Third Practice"),
+              title: Text(AppLocalizations.of(context)!.third_practice),
               value: chkThirdPractice,
               onChanged: (newValue) {
                 setState(() {
@@ -113,7 +124,7 @@ class NewPageState extends State{
               }
             ),
             CheckboxListTile(
-              title: Text("Sprint Race"),
+              title: Text(AppLocalizations.of(context)!.sprint_race),
               value: chkSprint,
               onChanged: (newValue) {
                 setState(() {
@@ -122,7 +133,7 @@ class NewPageState extends State{
               }
             ),
             CheckboxListTile(
-              title: Text("Qualifying"),
+              title: Text(AppLocalizations.of(context)!.qualifying),
               value: chkQualifying,
               onChanged: (newValue) {
                 setState(() {
@@ -131,7 +142,7 @@ class NewPageState extends State{
               }
             ),
             CheckboxListTile(
-              title: Text("Race"),
+              title: Text(AppLocalizations.of(context)!.race),
               value: chkRace,
               onChanged: (newValue) {
                 setState(() {
@@ -145,11 +156,11 @@ class NewPageState extends State{
               children: [
                 ElevatedButton(
                   onPressed: saveEvents, 
-                  child: Text("PROCEED")
+                  child: Text(AppLocalizations.of(context)!.proceed)
                 ),
                 ElevatedButton(
                   onPressed: deleteEvents, 
-                  child: Text("DELETE ALL FROM CALENDAR"),
+                  child: Text(AppLocalizations.of(context)!.delete_all_from_calendar),
                 )
               ],
             )
@@ -210,7 +221,7 @@ class NewPageState extends State{
     }
     catch(e){
       EasyLoading.showError(
-        'An error occurred while reading the device calendars, check the permission and try again', 
+        AppLocalizations.of(context)!.error_read_calendars, 
         duration: Duration(seconds: 10), 
         dismissOnTap: true
       );
@@ -229,22 +240,21 @@ class NewPageState extends State{
     );
 
     List<Event> calendarEvents = tmpCalendarEvents.data as List<Event>;
-    calendarEvents.forEach((element) {
-      deviceCalendarPlugin.deleteEvent(selectedCalendarID, element.eventId);
-      
-    });
+    for (Event event in calendarEvents) {
+      deviceCalendarPlugin.deleteEvent(selectedCalendarID, event.eventId);
+    }
     decreseCounter();
   }
 
   saveEvents() async{
     increaseCounter();
     if(selectedCalendarID == ''){
-      EasyLoading.showError("Select a valid calendar");
+      EasyLoading.showError(AppLocalizations.of(context)!.warning_calendar_nor_selected);
       return;
     }
 
     if(calendarData == null){
-      EasyLoading.showError("An Error occurred while retriving data online");
+      EasyLoading.showError("An Error occurred while retriving online data");
       return;
     }
 

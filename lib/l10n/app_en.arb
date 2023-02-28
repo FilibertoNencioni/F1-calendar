@@ -1,0 +1,19 @@
+{
+  "setting": "Settings",
+  "choose_season": "Choose a season",
+  "season": "Season",
+  "choose_calendar": "Choose a calendar",
+  "choose_language": "Choose your language",
+  "choose_event": "Choose what to save in the calendar",
+  "first_practice": "First Practice",
+  "second_practice": "Second Practice",
+  "third_practice": "Third Practice",
+  "sprint_race": "Sprint Race",
+  "qualifying": "Qualifying",
+  "race": "Race",
+  "proceed": "Proceed",
+  "delete_all_from_calendar": "Delete all from calendar",
+  "error_read_calendars": "An error occurred while reading the device calendars, check the app permissions and try again",
+  "warning_calendar_nor_selected": "Select a valid calendar"
+
+}

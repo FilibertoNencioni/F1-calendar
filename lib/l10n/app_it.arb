@@ -1,0 +1,19 @@
+{
+    "setting": "Impostazioni",
+    "choose_season": "Scegli una stagione",
+    "season": "Stagione",
+    "choose_calendar": "Seleziona un calendario",
+    "choose_language": "Seleziona una lingua",
+    "choose_event": "Seleziona cosa salvare nel calendario",
+    "first_practice": "FP1",
+    "second_practice": "FP2",
+    "third_practice": "FP3",
+    "sprint_race": "Gara Sprint",
+    "qualifying": "Qualifiche",
+    "race": "Gara",
+    "proceed": "Procedi",
+    "delete_all_from_calendar": "Elimina tutto dal calendario",
+    "error_read_calendars": "Si è verificato un errore durante la lettura dei calendari del dispositivo, controlla i permessi dell'app e riprova",
+    "warning_calendar_nor_selected": "Seleziona un calendario valido"
+
+}
