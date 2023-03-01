@@ -17,6 +17,7 @@
   "warning_calendar_nor_selected": "Select a valid calendar",
   "events_inserted_successfully": "Events inserted in the calendar successfully!",
   "error_fetch_data": "An error occurred while retriving online data",
-  "warning_select_option": "Select at least one option"
+  "warning_select_option": "Select at least one option",
+  "choose_timezone": "Choose your timezone"
 
 }

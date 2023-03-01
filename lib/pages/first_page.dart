@@ -270,7 +270,7 @@ class FirstPageState extends State{
       if(chkRace){
         Event currentEvent = Event(selectedCalendarID);
         //race info
-        TZDateTime startDate = TZDateTime.parse(getLocation('Europe/Rome'), "${race.date} ${race.time}");
+        TZDateTime startDate = TZDateTime.parse(getLocation(selectedTimeZone), "${race.date} ${race.time}");
         TZDateTime endDate = startDate.add(const Duration(hours: 1));
         String title = race.raceName;
 
@@ -282,7 +282,7 @@ class FirstPageState extends State{
 
       if(chkFirstPractice && race.firstPractice != null){
         Event currentEvent = Event(selectedCalendarID);
-        currentEvent.start = TZDateTime.parse(getLocation('Europe/Rome'), "${race.firstPractice!.date} ${race.firstPractice!.time}");
+        currentEvent.start = TZDateTime.parse(getLocation(selectedTimeZone), "${race.firstPractice!.date} ${race.firstPractice!.time}");
         currentEvent.end = currentEvent.start!.add(const Duration(hours: 1));
         currentEvent.title = "${race.raceName} - ${AppLocalizations.of(context)!.first_practice}";
         eventsToAdd.add(currentEvent);
@@ -290,7 +290,7 @@ class FirstPageState extends State{
 
       if(chkSecondPractice && race.secondPractice != null){
         Event currentEvent = Event(selectedCalendarID);
-        currentEvent.start = TZDateTime.parse(getLocation('Europe/Rome'), "${race.secondPractice!.date} ${race.secondPractice!.time}");
+        currentEvent.start = TZDateTime.parse(getLocation(selectedTimeZone), "${race.secondPractice!.date} ${race.secondPractice!.time}");
         currentEvent.end = currentEvent.start!.add(const Duration(hours: 1));
         currentEvent.title = "${race.raceName} - ${AppLocalizations.of(context)!.second_practice}";
         eventsToAdd.add(currentEvent);
@@ -298,7 +298,7 @@ class FirstPageState extends State{
 
       if(chkThirdPractice && race.thirdPractice != null){
         Event currentEvent = Event(selectedCalendarID);
-        currentEvent.start = TZDateTime.parse(getLocation('Europe/Rome'), "${race.thirdPractice!.date} ${race.thirdPractice!.time}");
+        currentEvent.start = TZDateTime.parse(getLocation(selectedTimeZone), "${race.thirdPractice!.date} ${race.thirdPractice!.time}");
         currentEvent.end = currentEvent.start!.add(const Duration(hours: 1));
         currentEvent.title = "${race.raceName} - ${AppLocalizations.of(context)!.third_practice}";
         eventsToAdd.add(currentEvent);
@@ -306,7 +306,7 @@ class FirstPageState extends State{
 
       if(chkSprint && race.sprint != null){
         Event currentEvent = Event(selectedCalendarID);
-        currentEvent.start = TZDateTime.parse(getLocation('Europe/Rome'), "${race.sprint!.date} ${race.sprint!.time}");
+        currentEvent.start = TZDateTime.parse(getLocation(selectedTimeZone), "${race.sprint!.date} ${race.sprint!.time}");
         currentEvent.end = currentEvent.start!.add(const Duration(hours: 1));
         currentEvent.title = "${race.raceName} - ${AppLocalizations.of(context)!.sprint_race}";
         eventsToAdd.add(currentEvent);
@@ -314,7 +314,7 @@ class FirstPageState extends State{
 
       if(chkQualifying && race.qualifying != null){
         Event currentEvent = Event(selectedCalendarID);
-        currentEvent.start = TZDateTime.parse(getLocation('Europe/Rome'), "${race.qualifying!.date} ${race.qualifying!.time}");
+        currentEvent.start = TZDateTime.parse(getLocation(selectedTimeZone), "${race.qualifying!.date} ${race.qualifying!.time}");
         currentEvent.end = currentEvent.start!.add(const Duration(hours: 1));
         currentEvent.title = "${race.raceName} - ${AppLocalizations.of(context)!.qualifying}";
         eventsToAdd.add(currentEvent);

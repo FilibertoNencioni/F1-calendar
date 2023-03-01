@@ -17,6 +17,7 @@
     "warning_calendar_nor_selected": "Seleziona un calendario valido",
     "events_inserted_successfully": "Eventi inseriti nel calendario con successo!",
     "error_fetch_data": "Si è verificato un'errore durante il prelievo dei dati online",
-    "warning_select_option": "Seleziona almeno un'opsione tra quelle presenti"
+    "warning_select_option": "Seleziona almeno un'opsione tra quelle presenti",
+    "choose_timezone": "Seleziona il tuo fuso orario"
 
 }
