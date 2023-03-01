@@ -12,14 +12,14 @@ import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 
-class NewPage extends StatefulWidget{
-  const NewPage({Key? key}) : super(key: key);
+class FirstPage extends StatefulWidget{
+  const FirstPage({Key? key}) : super(key: key);
 
   @override
-  NewPageState createState() =>NewPageState();
+  FirstPageState createState() =>FirstPageState();
 }
 
-class NewPageState extends State{
+class FirstPageState extends State{
   late DeviceCalendarPlugin deviceCalendarPlugin;
   List<String> seasons = [];
   CalendarData? calendarData;

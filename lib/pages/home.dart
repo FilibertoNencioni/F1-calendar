@@ -1,4 +1,4 @@
-import 'package:f1_calendar/pages/new_page.dart';
+import 'package:f1_calendar/pages/first_page.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatelessWidget {
@@ -18,7 +18,7 @@ class Home extends StatelessWidget {
           children: [
             ElevatedButton(
               child: const Text('LET\'S START!'),
-              onPressed: ()=> Navigator.push(context, MaterialPageRoute(builder: (context) => const NewPage()))
+              onPressed: ()=> Navigator.push(context, MaterialPageRoute(builder: (context) => const FirstPage()))
             )
           ],
         )

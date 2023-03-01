@@ -23,7 +23,11 @@ class App extends StatefulWidget {
     state?.setState(() {
       state.appLocale = newLocale;
     });
-    
+  }
+
+  static Future<Locale?> getLocale(BuildContext context) async{
+    AppState? state = context.findAncestorStateOfType<AppState>();
+    return state?.appLocale;
   }
 
   @override

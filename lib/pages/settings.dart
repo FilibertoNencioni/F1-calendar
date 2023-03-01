@@ -2,8 +2,27 @@ import 'package:f1_calendar/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class Settings extends StatelessWidget{
+class Settings extends StatefulWidget{
   const Settings({Key? key}) : super(key: key);
+
+  @override
+  SettingsState createState() => SettingsState();
+}
+
+class SettingsState extends State<Settings>{
+  String currentLocale = '';
+  
+  @override
+  void initState() {
+    App.getLocale(context).then((newLocale){
+      if(newLocale != null){
+        setState(() {
+          currentLocale = newLocale.languageCode;
+        });
+      }
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,16 +35,16 @@ class Settings extends StatelessWidget{
         child: Column(
           children: [
             Text(AppLocalizations.of(context)!.choose_language),
-            SizedBox(height: 32,),
+            SizedBox(height: 16,),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 ElevatedButton(
-                  onPressed: () => App.setLocale(context, Locale("it")),
+                  onPressed:(currentLocale != "it")? () => handleLangChange("it"): null,
                   child: Text("Italiano")
                 ),
                 ElevatedButton(
-                  onPressed: () => App.setLocale(context, Locale("en")),
+                  onPressed:(currentLocale != "en")? () => handleLangChange("en") : null,
                   child: Text("English")
                 ),
               ],
@@ -34,6 +53,13 @@ class Settings extends StatelessWidget{
         ),
       ),
     );
+  }
+
+  handleLangChange(String langCode){
+    App.setLocale(context, Locale(langCode));
+    setState(() {
+      currentLocale = langCode;
+    });
   }
 
 }
