@@ -2,6 +2,7 @@ import 'package:f1_calendar/pages/home.dart';
 import 'package:f1_calendar/pages/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PageHandler extends StatelessWidget {
   const PageHandler({Key? key}) : super(key: key);
@@ -13,7 +14,7 @@ class PageHandler extends StatelessWidget {
     ];
   }
 
-  List<PersistentBottomNavBarItem> _navBarsItems() {
+  List<PersistentBottomNavBarItem> navBarsItems(BuildContext context) {
     return [
       PersistentBottomNavBarItem(
         icon: Icon(Icons.home),
@@ -21,7 +22,7 @@ class PageHandler extends StatelessWidget {
       ),
       PersistentBottomNavBarItem(
         icon: Icon(Icons.settings),
-        title: "Settings",
+        title: AppLocalizations.of(context)!.setting,
       ),
     ];
   }
@@ -35,7 +36,7 @@ class PageHandler extends StatelessWidget {
         context,
         controller: pageController,
         screens: buildScreens(),
-        items: _navBarsItems(),
+        items: navBarsItems(context),
         confineInSafeArea: true,
         backgroundColor: Colors.white, // Default is Colors.white.
         handleAndroidBackButtonPress: true, // Default is true.

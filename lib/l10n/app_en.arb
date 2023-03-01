@@ -14,6 +14,9 @@
   "proceed": "Proceed",
   "delete_all_from_calendar": "Delete all from calendar",
   "error_read_calendars": "An error occurred while reading the device calendars, check the app permissions and try again",
-  "warning_calendar_nor_selected": "Select a valid calendar"
+  "warning_calendar_nor_selected": "Select a valid calendar",
+  "events_inserted_successfully": "Events inserted in the calendar successfully!",
+  "error_fetch_data": "An error occurred while retriving online data",
+  "warning_select_option": "Select at least one option"
 
 }

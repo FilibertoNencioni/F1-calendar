@@ -14,6 +14,9 @@
     "proceed": "Procedi",
     "delete_all_from_calendar": "Elimina tutto dal calendario",
     "error_read_calendars": "Si è verificato un errore durante la lettura dei calendari del dispositivo, controlla i permessi dell'app e riprova",
-    "warning_calendar_nor_selected": "Seleziona un calendario valido"
+    "warning_calendar_nor_selected": "Seleziona un calendario valido",
+    "events_inserted_successfully": "Eventi inseriti nel calendario con successo!",
+    "error_fetch_data": "Si è verificato un'errore durante il prelievo dei dati online",
+    "warning_select_option": "Seleziona almeno un'opsione tra quelle presenti"
 
 }

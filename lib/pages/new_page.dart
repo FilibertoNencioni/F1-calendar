@@ -58,7 +58,7 @@ class NewPageState extends State{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('test')),
+      appBar: AppBar(title: const Text('F1 Calendar')),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child:  Column(
@@ -254,12 +254,12 @@ class NewPageState extends State{
     }
 
     if(calendarData == null){
-      EasyLoading.showError("An Error occurred while retriving online data");
+      EasyLoading.showError(AppLocalizations.of(context)!.error_fetch_data);
       return;
     }
 
     if(chkFirstPractice && chkSecondPractice && chkThirdPractice && chkQualifying && chkRace){
-      EasyLoading.showError("Select at least one option from the checkboxes");
+      EasyLoading.showError(AppLocalizations.of(context)!.warning_select_option);
       return;
     }
 
@@ -328,6 +328,6 @@ class NewPageState extends State{
     }
 
     decreseCounter();
-    EasyLoading.showSuccess("Events inserted in the calendar successfully!", duration: Duration(seconds: 5), dismissOnTap: true);
+    EasyLoading.showSuccess(AppLocalizations.of(context)!.events_inserted_successfully, duration: Duration(seconds: 5), dismissOnTap: true);
   }
 }

@@ -59,7 +59,7 @@ class AppState extends State<App>{
         primarySwatch: Colors.blue,
       ),
       localizationsDelegates: [
-        AppLocalizations.delegate, // Add this line
+        AppLocalizations.delegate, 
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
