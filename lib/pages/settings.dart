@@ -1,8 +1,9 @@
-import 'dart:developer';
+// ignore_for_file: depend_on_referenced_packages
 
 import 'package:f1_calendar/core/globals.dart';
 import 'package:f1_calendar/main.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest.dart' as tz;
@@ -20,19 +21,24 @@ class SettingsState extends State<Settings>{
   
   @override
   void initState() {
-    //Get curtrent app language
-    App.getLocale(context).then((newLocale){
-      if(newLocale != null){
-        setState(() {
-          currentLocale = newLocale.languageCode;
-        });
-      }
-    });
+    //Get current app language
+    increaseCounter();
+    App.getLocale(context)
+      .then((newLocale){
+        if(newLocale != null){
+          setState(() {
+            currentLocale = newLocale.languageCode;
+          });
+          decreseCounter();
+        }
+      })
+      .onError((error, stackTrace) {
+        EasyLoading.showError(AppLocalizations.of(context)!.generic_error);
+      });
 
     //Get all locale (for timezone)
     tz.initializeTimeZones();
     List<String> tmpLocations = tz.timeZoneDatabase.locations.entries.map((e)=>e.key).toList();
-    log(tmpLocations.length.toString());
 
     setState(() {
       locations = tmpLocations;
@@ -77,6 +83,7 @@ class SettingsState extends State<Settings>{
                   return option.toLowerCase().contains(textEditingValue.text.toLowerCase());
                 });
               },
+              initialValue: TextEditingValue(text: selectedTimeZone),
               onSelected: (String selection) {
                 selectedTimeZone = selection;
               },

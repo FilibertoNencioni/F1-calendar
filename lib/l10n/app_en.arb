@@ -18,6 +18,7 @@
   "events_inserted_successfully": "Events inserted in the calendar successfully!",
   "error_fetch_data": "An error occurred while retriving online data",
   "warning_select_option": "Select at least one option",
-  "choose_timezone": "Choose your timezone"
+  "choose_timezone": "Choose your timezone",
+  "generic_error": "An expected error occurred, please close the app and try again"
 
 }

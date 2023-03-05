@@ -1,3 +1,4 @@
+import 'package:f1_calendar/core/globals.dart';
 import 'package:f1_calendar/page_handler.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -45,6 +46,10 @@ class AppState extends State<App>{
         appLocale = locale;
       });
     });
+
+    fetchTimeZone().then((newTimeZone) {
+      selectedTimeZone = newTimeZone;
+    });
   }
 
   Future<Locale> fetchLocale() async {
@@ -53,6 +58,14 @@ class AppState extends State<App>{
     String languageCode = prefs.getString('languageCode') ?? 'en';
 
     return Locale(languageCode);
+  }
+
+  Future<String> fetchTimeZone() async {
+    var prefs = await SharedPreferences.getInstance();
+
+    String timeZone = prefs.getString('timeZone') ?? 'Europe/Rome';
+
+    return timeZone;
   }
 
   @override

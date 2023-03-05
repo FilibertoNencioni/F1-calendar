@@ -18,6 +18,7 @@
     "events_inserted_successfully": "Eventi inseriti nel calendario con successo!",
     "error_fetch_data": "Si è verificato un'errore durante il prelievo dei dati online",
     "warning_select_option": "Seleziona almeno un'opsione tra quelle presenti",
-    "choose_timezone": "Seleziona il tuo fuso orario"
+    "choose_timezone": "Seleziona il tuo fuso orario",
+    "generic_error": "Si è verificato un'errore inaspettato, chiudi l'applicazione e riprova"
 
 }
