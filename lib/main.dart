@@ -1,5 +1,6 @@
 import 'package:f1_calendar/core/globals.dart';
 import 'package:f1_calendar/page_handler.dart';
+import 'package:f1_calendar/theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -72,9 +73,8 @@ class AppState extends State<App>{
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'F1 Calendar',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: myTheme,
+      
       localizationsDelegates: [
         AppLocalizations.delegate, 
         GlobalMaterialLocalizations.delegate,

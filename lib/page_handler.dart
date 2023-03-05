@@ -1,5 +1,6 @@
 import 'package:f1_calendar/pages/home.dart';
 import 'package:f1_calendar/pages/settings.dart';
+import 'package:f1_calendar/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -19,10 +20,12 @@ class PageHandler extends StatelessWidget {
       PersistentBottomNavBarItem(
         icon: Icon(Icons.home),
         title: "Home",
+        activeColorPrimary: myTheme.primaryColor
       ),
       PersistentBottomNavBarItem(
         icon: Icon(Icons.settings),
         title: AppLocalizations.of(context)!.setting,
+        activeColorPrimary: myTheme.primaryColor
       ),
     ];
   }
